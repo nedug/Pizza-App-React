@@ -7,7 +7,7 @@ import { PizzaBlock } from './PizzaBlock';
 import pizzas from './db.json';
 
 
-const App = () => (
+export const App = () => (
     <div className="wrapper">
 
         <Header />
@@ -33,5 +33,3 @@ const App = () => (
 
     </div>
 );
-
-export default App;
