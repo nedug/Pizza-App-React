@@ -23,6 +23,8 @@ const App = () => (
                 <div className="content__items">
 
                     <PizzaBlock />
+                    <PizzaBlock />
+
 
                 </div>
             </div>
