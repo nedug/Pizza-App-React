@@ -3,9 +3,10 @@
 .categories {
   ul {
     display: flex;
+    flex-wrap: wrap;
 
     li {
-      background-color: #f9f9f9;
+      background-color: #e1e1e1;
       padding: 13px 30px;
       border-radius: 30px;
       margin-right: 10px;
