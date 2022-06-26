@@ -1,48 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './scss/app.scss';
-import { Header } from './Header';
-import { Categories } from './Categories';
-import { Sort } from './Sort';
-import { PizzaBlock, PizzaType } from './PizzaBlock';
-import { SkeletonPizza } from './SkeletonPizza';
+import { Header } from './components/Header';
+import { Home } from './pages/Home';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { Cart } from './pages/Cart';
 
 
 export const App = () => {
-
-    const [pizzas, setPizzas] = useState<PizzaType[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        fetch('https://62b7ffc9f4cb8d63df575778.mockapi.io/items')
-            .then(res => res.json())
-            .then(data => {
-                setPizzas(data);
-                setIsLoading(false);
-            })
-    }, []);
-
 
     return (
         <div className="wrapper">
             <Header />
             <div className="content">
                 <div className="container">
-                    <div className="content__top">
-                        <Categories />
-                        <Sort />
-                    </div>
-                    <h2 className="content__title">Все пиццы</h2>
-                    <div className="content__items">
-                        {
-                            isLoading
-                                ?
-                                [...new Array(6)].map((_, i) =>
-                                    <SkeletonPizza key={i} />)
-                                :
-                                pizzas.map(p =>
-                                    <PizzaBlock key={p.id} pizza={p} />)
-                        }
-                    </div>
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/cart" element={<Cart />} />
+                        <Route path="/404" element={<h2>404: PAGE NOT FOUND 😕</h2>} />
+                        <Route path="*" element={<Navigate to={'/404'} />} />
+                    </Routes>
                 </div>
             </div>
         </div>
