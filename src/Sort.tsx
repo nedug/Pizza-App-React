@@ -39,7 +39,6 @@ export const Sort = () => {
                     {
                         sort.map((li, i) =>
                             <li key={i} className={index === i ? 'active' : ''} onClick={clickSortHandler(i)}>{li}</li>)
-
                     }
                 </ul>
             </div>}
