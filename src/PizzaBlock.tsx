@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-type PizzaType = {
+export type PizzaType = {
     id: number
     imageUrl: string
     name: string
@@ -11,7 +11,7 @@ type PizzaType = {
     rating: number
 }
 
-type PizzaBlockPropsType = {
+export type PizzaBlockPropsType = {
     pizza: PizzaType
 }
 
@@ -35,7 +35,7 @@ export const PizzaBlock = ({ pizza }: PizzaBlockPropsType) => {
             <div className="pizza-block__selector">
                 <ul>
                     {pizza.types.map((t, i) =>
-                        <li key={i} className={indexTypes === t ? 'active' : ''} onClick={clickTypesHandler(t)}>
+                        <li key={i} className={indexTypes === i ? 'active' : ''} onClick={clickTypesHandler(i)}>
                             {t === 0 ? 'тонкое' : 'традиционное'}
                         </li>)}
                 </ul>
