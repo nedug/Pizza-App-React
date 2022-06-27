@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-export const Sort = ({sortType, callback}: SortPropsType) => {
+export const Sort = ({ sortType, callback }: SortPropsType) => {
     const sort = ['популярности', 'цене', 'алфавиту',];
 
     const [isVisible, setIsVisible] = useState(false);
@@ -38,7 +38,8 @@ export const Sort = ({sortType, callback}: SortPropsType) => {
                 <ul>
                     {
                         sort.map((li, i) =>
-                            <li key={i} className={sortType === i ? 'active' : ''} onClick={clickSortHandler(i)}>{li}</li>)
+                            <li key={i} className={sortType === i ? 'active' : ''}
+                                onClick={clickSortHandler(i)}>{li}</li>)
                     }
                 </ul>
             </div>}

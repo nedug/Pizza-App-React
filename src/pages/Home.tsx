@@ -36,7 +36,7 @@ export const Home = ({ searchValue }: HomePropsType) => {
         fetch(`https://62b7ffc9f4cb8d63df575778.mockapi.io/pizzas?${categoriesId > 0 ? `category=${categoriesId}` : ''}`)
             .then(res => res.json())
             .then(data => {
-                setPageCount(Math.ceil(data.length / 4 ));
+                setPageCount(Math.ceil(data.length / 4));
             })
     }, [categoriesId]);
 

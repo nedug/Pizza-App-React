@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Search } from './Search';
 
 
-export const Header = ({searchValue, setSearchValue}: HeaderPropsType) => {
+export const Header = ({ searchValue, setSearchValue }: HeaderPropsType) => {
     return (
         <div className="header">
             <div className="container">

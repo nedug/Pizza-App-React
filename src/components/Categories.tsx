@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export const Categories = ({categoriesId, callback}: CategoriesPropsType) => {
+export const Categories = ({ categoriesId, callback }: CategoriesPropsType) => {
     const categories = ['Все', 'Мясные', 'Вегетарианская', 'Курица', 'Острые', 'Закрытые',];
 
     const clickHandler = (index: number) => () => callback(index);
