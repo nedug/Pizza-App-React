@@ -5,9 +5,11 @@ import { SkeletonPizza } from '../components/SkeletonPizza';
 import { PizzaBlock, PizzaType } from '../components/PizzaBlock';
 
 
-export const Home = () => {
+export const Home = ({searchValue}: HomePropsType) => {
 
     const sortBy = ['rating', 'price', 'name'];
+
+    console.log(searchValue);
 
     const [pizzas, setPizzas] = useState<PizzaType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -27,14 +29,14 @@ export const Home = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`https://62b7ffc9f4cb8d63df575778.mockapi.io/pizzas?${categoriesId > 0 ? `category=${categoriesId}` : ''}&sortBy=${searchSort}&order=${searchSort === 'rating' ? 'desc' : 'asc'}`)
+        fetch(`https://62b7ffc9f4cb8d63df575778.mockapi.io/pizzas?${searchValue.length > 0 ? `search=${searchValue}` : ''}${categoriesId > 0 ? `category=${categoriesId}` : ''}&sortBy=${searchSort}&order=${searchSort === 'rating' ? 'desc' : 'asc'}`)
             .then(res => res.json())
             .then(data => {
                 setPizzas(data);
                 setIsLoading(false);
             })
         window.scrollTo(0, 0);
-    }, [categoriesId, searchSort]);
+    }, [categoriesId, searchSort, searchValue]);
 
 
     return (
@@ -64,3 +66,8 @@ export const Home = () => {
         </>
     );
 };
+
+
+type HomePropsType = {
+    searchValue: string
+}
