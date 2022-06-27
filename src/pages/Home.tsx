@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Categories } from '../components/Categories';
 import { Sort } from '../components/Sort';
 import { SkeletonPizza } from '../components/SkeletonPizza';
 import { PizzaBlock, PizzaType } from '../components/PizzaBlock';
 import { Pagination } from '../components/Pagination';
+import { SearchContext } from '../App';
 
 
-export const Home = ({ searchValue }: HomePropsType) => {
+export const Home = (/*{ searchValue }: HomePropsType*/) => {
 
     const sortBy = ['rating', 'price', 'name'];
 
@@ -20,6 +21,8 @@ export const Home = ({ searchValue }: HomePropsType) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pageCount, setPageCount] = useState(0);
+
+    const {searchValue}: any = useContext(SearchContext);
 
 
     const clickCategoriesIdHandler = (index: number) => {
@@ -82,6 +85,6 @@ export const Home = ({ searchValue }: HomePropsType) => {
 };
 
 
-type HomePropsType = {
-    searchValue: string
-}
+// type HomePropsType = {
+//     searchValue: string
+// }

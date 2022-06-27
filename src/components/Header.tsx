@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Search } from './Search';
 
 
-export const Header = ({ searchValue, setSearchValue }: HeaderPropsType) => {
+export const Header = (/*{ searchValue, setSearchValue }: HeaderPropsType*/) => {
     return (
         <div className="header">
             <div className="container">
@@ -18,8 +18,8 @@ export const Header = ({ searchValue, setSearchValue }: HeaderPropsType) => {
                     </div>
                 </Link>
                 <Search
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
+                    // searchValue={searchValue}
+                    // setSearchValue={setSearchValue}
                 />
                 <div className="header__cart">
                     <Link to="/cart" className="button button--cart">
@@ -63,7 +63,7 @@ export const Header = ({ searchValue, setSearchValue }: HeaderPropsType) => {
 };
 
 
-type HeaderPropsType = {
-    searchValue: string
-    setSearchValue: (value: string) => void
-}
+// type HeaderPropsType = {
+//     searchValue: string
+//     setSearchValue: (value: string) => void
+// }

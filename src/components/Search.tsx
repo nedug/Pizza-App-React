@@ -1,8 +1,11 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useContext } from 'react';
 import styles from './Search.module.scss';
+import { SearchContext } from '../App';
 
 
-export const Search = ({ searchValue, setSearchValue }: SearchPropsType) => {
+export const Search = (/*{ searchValue, setSearchValue }: SearchPropsType*/) => {
+
+    const {searchValue, setSearchValue}: any = useContext(SearchContext);
 
     const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -35,7 +38,7 @@ export const Search = ({ searchValue, setSearchValue }: SearchPropsType) => {
 };
 
 
-type SearchPropsType = {
-    searchValue: string
-    setSearchValue: (value: string) => void
-}
+// type SearchPropsType = {
+//     searchValue: string
+//     setSearchValue: (value: string) => void
+// }
