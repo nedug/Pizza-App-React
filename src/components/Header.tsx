@@ -2,6 +2,7 @@ import React from 'react';
 import LogoPizza from '../img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
 
+
 export const Header = () => {
     return (
         <div className="header">

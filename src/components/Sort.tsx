@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 
-export const Sort = () => {
+
+export const Sort = ({sortType, callback}: SortPropsType) => {
     const sort = ['популярности', 'цене', 'алфавиту',];
 
-    const [index, setIndex] = useState(0);
     const [isVisible, setIsVisible] = useState(false);
 
     const clickSortHandler = (index: number) => () => {
-        setIndex(index);
+        callback(index);
         setIsVisible(false);
     };
-
     const clickItemSortHandler = () => {
         setIsVisible(!isVisible);
     };
+
 
     return (
         <div className="sort">
@@ -31,17 +31,23 @@ export const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={clickItemSortHandler}>{sort[index]}</span>
+                <span onClick={clickItemSortHandler}>{sort[sortType]}</span>
             </div>
 
             {isVisible && <div className={'sort__popup'}>
                 <ul>
                     {
                         sort.map((li, i) =>
-                            <li key={i} className={index === i ? 'active' : ''} onClick={clickSortHandler(i)}>{li}</li>)
+                            <li key={i} className={sortType === i ? 'active' : ''} onClick={clickSortHandler(i)}>{li}</li>)
                     }
                 </ul>
             </div>}
         </div>
     );
 };
+
+
+type SortPropsType = {
+    sortType: number
+    callback: (categoriesId: number) => void
+}

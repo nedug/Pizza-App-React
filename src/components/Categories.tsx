@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export const Categories = () => {
-    const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые',];
 
-    const [index, setIndex] = useState(0);
-    const clickHandler = (index: number) => () => setIndex(index);
+export const Categories = ({categoriesId, callback}: CategoriesPropsType) => {
+    const categories = ['Все', 'Мясные', 'Вегетарианская', 'Курица', 'Острые', 'Закрытые',];
+
+    const clickHandler = (index: number) => () => callback(index);
+
 
     return (
         <div className="categories">
             <ul>
                 {categories.map((li, i) =>
-                    <li key={i} className={index === i ? 'active' : ''} onClick={clickHandler(i)}>{li}</li>)
+                    <li key={i} className={categoriesId === i ? 'active' : ''} onClick={clickHandler(i)}>{li}</li>)
                 }
             </ul>
         </div>
     );
 };
+
+
+type CategoriesPropsType = {
+    categoriesId: number
+    callback: (categoriesId: number) => void
+}

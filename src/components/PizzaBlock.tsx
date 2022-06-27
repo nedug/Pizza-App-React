@@ -1,19 +1,5 @@
 import React, { useState } from 'react';
 
-export type PizzaType = {
-    id: number
-    imageUrl: string
-    name: string
-    types: number[]
-    sizes: number[]
-    price: number
-    category: number
-    rating: number
-}
-
-export type PizzaBlockPropsType = {
-    pizza: PizzaType
-}
 
 export const PizzaBlock = ({ pizza }: PizzaBlockPropsType) => {
     const [indexTypes, setIndexTypes] = useState(0);
@@ -21,6 +7,7 @@ export const PizzaBlock = ({ pizza }: PizzaBlockPropsType) => {
 
     const clickTypesHandler = (index: number) => () => setIndexTypes(index);
     const clickSizesHandler = (index: number) => () => setIndexSizes(index);
+
 
     return (
         <div className="pizza-block">
@@ -69,3 +56,19 @@ export const PizzaBlock = ({ pizza }: PizzaBlockPropsType) => {
         </div>
     );
 };
+
+
+export type PizzaType = {
+    id: number
+    imageUrl: string
+    name: string
+    types: number[]
+    sizes: number[]
+    price: number
+    category: number
+    rating: number
+}
+
+export type PizzaBlockPropsType = {
+    pizza: PizzaType
+}
