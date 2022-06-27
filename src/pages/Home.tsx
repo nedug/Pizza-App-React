@@ -7,7 +7,7 @@ import { Pagination } from '../components/Pagination';
 import { SearchContext } from '../App';
 
 
-export const Home = (/*{ searchValue }: HomePropsType*/) => {
+export const Home = () => {
 
     const sortBy = ['rating', 'price', 'name'];
 
@@ -83,8 +83,3 @@ export const Home = (/*{ searchValue }: HomePropsType*/) => {
         </>
     );
 };
-
-
-// type HomePropsType = {
-//     searchValue: string
-// }

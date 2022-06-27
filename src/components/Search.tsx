@@ -3,7 +3,7 @@ import styles from './Search.module.scss';
 import { SearchContext } from '../App';
 
 
-export const Search = (/*{ searchValue, setSearchValue }: SearchPropsType*/) => {
+export const Search = () => {
 
     const {searchValue, setSearchValue}: any = useContext(SearchContext);
 
@@ -36,9 +36,3 @@ export const Search = (/*{ searchValue, setSearchValue }: SearchPropsType*/) => 
 
     );
 };
-
-
-// type SearchPropsType = {
-//     searchValue: string
-//     setSearchValue: (value: string) => void
-// }

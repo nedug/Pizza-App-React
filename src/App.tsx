@@ -14,10 +14,7 @@ export const App = () => {
     return (
         <div className="wrapper">
             <SearchContext.Provider value={{ searchValue, setSearchValue }}>
-                <Header
-                    // searchValue={searchValue}
-                    // setSearchValue={setSearchValue}
-                />
+                <Header />
                 <div className="content">
                     <div className="container">
                         <Routes>
