@@ -5,6 +5,8 @@ import { SkeletonPizza } from '../components/SkeletonPizza';
 import { PizzaBlock, PizzaType } from '../components/PizzaBlock';
 import { Pagination } from '../components/Pagination';
 import { SearchContext } from '../App';
+import { useAppDispatch, useAppSelector } from '../state/store';
+import { setCategoriesIdAC, setSortTypeAC } from '../state/filter-reducer';
 
 
 export const Home = () => {
@@ -14,8 +16,10 @@ export const Home = () => {
     const [pizzas, setPizzas] = useState<PizzaType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const [categoriesId, setCategoriesId] = useState(0);
-    const [sortType, setSortType] = useState(0);
+    const categoriesId = useAppSelector(state => state.filter.categories);
+    const sortType = useAppSelector(state => state.filter.sortType);
+
+    const dispatch = useAppDispatch();
 
     const [searchSort, setSearchSort] = useState('rating');
 
@@ -26,11 +30,13 @@ export const Home = () => {
 
 
     const clickCategoriesIdHandler = (index: number) => {
-        setCategoriesId(index);
+        dispatch(setCategoriesIdAC({ index }));
+
         setCurrentPage(1);
     };
     const clickSortIdHandler = (index: number) => {
-        setSortType(index);
+        dispatch(setSortTypeAC({ index }));
+
         setSearchSort(sortBy[index]);
     };
 
