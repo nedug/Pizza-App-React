@@ -22,7 +22,7 @@ export const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageCount, setPageCount] = useState(0);
 
-    const {searchValue}: any = useContext(SearchContext);
+    const { searchValue }: any = useContext(SearchContext);
 
 
     const clickCategoriesIdHandler = (index: number) => {
@@ -72,7 +72,7 @@ export const Home = () => {
                 {
                     isLoading
                         ?
-                        [...new Array(6)].map((_, i) =>
+                        [...new Array(3)].map((_, i) =>
                             <SkeletonPizza key={i} />)
                         :
                         pizzas.map(p =>
