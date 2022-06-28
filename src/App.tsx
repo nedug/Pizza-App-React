@@ -5,11 +5,13 @@ import { Home } from './pages/Home';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Cart } from './pages/Cart';
 
+
 export const SearchContext = React.createContext({});
 
 export const App = () => {
 
     const [searchValue, setSearchValue] = useState('');
+
 
     return (
         <div className="wrapper">
