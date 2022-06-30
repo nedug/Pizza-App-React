@@ -7,6 +7,7 @@ import { Pagination } from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useAppDispatch, useAppSelector } from '../state/store';
 import { setCategoriesIdAC, setSortTypeAC } from '../state/filter-reducer';
+import { API } from '../api/API';
 
 
 export const Home = () => {
@@ -42,18 +43,16 @@ export const Home = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`https://62b7ffc9f4cb8d63df575778.mockapi.io/pizzas?${categoriesId > 0 ? `category=${categoriesId}` : ''}`)
-            .then(res => res.json())
-            .then(data => {
+        API.getAllPizzasWithCateg(categoriesId)
+            .then(({ data }) => {
                 setPageCount(Math.ceil(data.length / 4));
             })
     }, [categoriesId]);
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`https://62b7ffc9f4cb8d63df575778.mockapi.io/pizzas?page=${currentPage}&limit=4&${searchValue.length > 0 ? `search=${searchValue}` : ''}${categoriesId > 0 ? `category=${categoriesId}` : ''}&sortBy=${searchSort}&order=${searchSort === 'rating' ? 'desc' : 'asc'}`)
-            .then(res => res.json())
-            .then(data => {
+        API.getAllPizzasWithFilter(categoriesId, currentPage, searchValue, searchSort)
+            .then(({ data }) => {
                 setPizzas(data);
                 setIsLoading(false);
             })

@@ -1,22 +1,26 @@
-import React, { ChangeEvent, useContext } from 'react';
+import React, { ChangeEvent, useContext, useRef } from 'react';
 import styles from './Search.module.scss';
 import { SearchContext } from '../App';
 
 
 export const Search = () => {
 
-    const {searchValue, setSearchValue}: any = useContext(SearchContext);
+    const { searchValue, setSearchValue }: any = useContext(SearchContext);
+
+    const inputSearchRef = useRef<HTMLInputElement>(null!);
 
     const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
     };
     const clickClearHandler = () => {
         setSearchValue('');
+        inputSearchRef.current.focus();
     };
 
     return (
         <div className={styles.root}>
             <input
+                ref={inputSearchRef}
                 value={searchValue}
                 className={styles.input}
                 placeholder="Поиск пиццы..."
