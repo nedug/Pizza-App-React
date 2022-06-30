@@ -32,7 +32,6 @@ export const Home = () => {
     const clickCategoriesIdHandler = (index: number) => {
         dispatch(setCategoriesIdAC({ index }));
         dispatch(setCurrentPageAC({ currentPage: 1 }));
-        // setCurrentPageAC(1);
     };
     const clickSortIdHandler = (index: number) => {
         dispatch(setSortTypeAC({ index }));
