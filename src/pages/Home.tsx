@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Categories } from '../components/Categories';
 import { Sort } from '../components/Sort';
 import { SkeletonPizza } from '../components/SkeletonPizza';
@@ -6,13 +6,24 @@ import { PizzaBlock, PizzaType } from '../components/PizzaBlock';
 import { Pagination } from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useAppDispatch, useAppSelector } from '../state/store';
-import { setCategoriesIdAC, setCurrentPageAC, setSortTypeAC } from '../state/filter-reducer';
+import {
+    setCategoriesIdAC,
+    setCurrentPageAC,
+    setFilterParams,
+    setFilterParamsActionsType,
+    setSortTypeAC
+} from '../state/filter-reducer';
 import { API } from '../api/API';
+import qs from 'qs';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Home = () => {
 
-    const sortBy = ['rating', 'price', 'name'];
+    const isSearchParams = useRef(false);
+    const isMounted = useRef(false);
+
+    const sortBy = useMemo(() => ['rating', 'price', 'name'], []);
 
     const [pizzas, setPizzas] = useState<PizzaType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -22,12 +33,12 @@ export const Home = () => {
     const currentPage = useAppSelector(state => state.filter.currentPage);
 
     const dispatch = useAppDispatch();
+    const navigate = useNavigate(); /* Для вставки значений в URL */
 
     const [searchSort, setSearchSort] = useState('rating');
     const [pageCount, setPageCount] = useState(0);
 
     const { searchValue }: any = useContext(SearchContext);
-
 
     const clickCategoriesIdHandler = (index: number) => {
         dispatch(setCategoriesIdAC({ index }));
@@ -39,6 +50,20 @@ export const Home = () => {
     };
 
     useEffect(() => {
+        if (window.location.search) {
+            const params = qs.parse(window.location.search.substring(1));/* Забираем параметры из URL */
+
+            const indexSort = sortBy.findIndex((el) => el === params.searchSort);
+            setSearchSort(sortBy[indexSort]);
+
+            dispatch(setFilterParams({ ...params, searchSort: indexSort} as setFilterParamsActionsType));
+
+            isSearchParams.current = true;
+        }
+    }, [dispatch, sortBy]);
+
+
+    useEffect(() => {
         setIsLoading(true);
         API.getAllPizzasWithCateg(categoriesId)
             .then(({ data }) => {
@@ -47,14 +72,30 @@ export const Home = () => {
     }, [categoriesId]);
 
     useEffect(() => {
-        setIsLoading(true);
-        API.getAllPizzasWithFilter(categoriesId, currentPage, searchValue, searchSort)
-            .then(({ data }) => {
-                setPizzas(data);
-                setIsLoading(false);
-            })
-        // window.scrollTo(0, 0);
+        if (!isSearchParams.current) {
+            setIsLoading(true);
+            API.getAllPizzasWithFilter(categoriesId, currentPage, searchValue, searchSort)
+                .then(({ data }) => {
+                    setPizzas(data);
+                    setIsLoading(false);
+                })
+        }
+        isSearchParams.current = false;
     }, [categoriesId, searchSort, searchValue, currentPage]);
+
+    useEffect(() => { /* Для объединения search параметров */
+        if (isMounted.current) {
+            const queryString = qs.stringify({
+                categoriesId,
+                currentPage,
+                searchSort: sortBy[sortType],
+            });
+            navigate(`?${queryString}`); /* Вставляем search параметры в URL */
+        }
+        isMounted.current = true;
+    }, [categoriesId, searchSort, currentPage, navigate, sortType, sortBy]);
+
+
 
     const isPizzas = pizzas.length > 0
         ? pizzas.map(p => <PizzaBlock key={p.id} pizza={p} />)

@@ -39,6 +39,11 @@ const slice = createSlice({
         setCurrentPageAC(state, action: PayloadAction<{ currentPage: number }>) {
             state.currentPage = action.payload.currentPage;
         },
+        setFilterParams(state, action: PayloadAction<{ currentPage: string, categoriesId: string, searchSort: number }>) {
+            state.currentPage = Number(action.payload.currentPage);
+            state.categories = Number(action.payload.categoriesId);
+            state.sortType = action.payload.searchSort;
+        },
     },
     // extraReducers: (builder) => {
     //     builder.addCase(initializeAppTC.fulfilled, (state) => {
@@ -51,7 +56,7 @@ const slice = createSlice({
 export const filterReducer = slice.reducer;
 
 // Создаем Actions с помощью slice
-export const { setCategoriesIdAC, setSortTypeAC, setCurrentPageAC } = slice.actions;
+export const { setCategoriesIdAC, setSortTypeAC, setCurrentPageAC, setFilterParams } = slice.actions;
 
 
 // types
@@ -59,4 +64,10 @@ export type initialStateType = {
     categories: number
     sortType: number
     currentPage : number
+}
+
+export type setFilterParamsActionsType = {
+    currentPage: string
+    categoriesId: string
+    searchSort: number
 }
