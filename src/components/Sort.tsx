@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 
 export const Sort = ({ sortType, callback }: SortPropsType) => {
+
+    const sortRef = useRef(null!);
+
     const sort = ['популярности', 'цене', 'алфавиту',];
 
     const [isVisible, setIsVisible] = useState(false);
@@ -14,9 +17,23 @@ export const Sort = ({ sortType, callback }: SortPropsType) => {
         setIsVisible(!isVisible);
     };
 
+    useEffect(() => { /* Закрытие popup окна */
+        const documentClickHandler = (e: MouseEvent) => {
+            if (!e.composedPath().includes(sortRef.current)) {
+                setIsVisible(false);
+            }
+        };
+
+        document.body.addEventListener('click', documentClickHandler);
+
+        return () => {
+            document.body.removeEventListener('click', documentClickHandler);
+        };
+    }, [isVisible]);
+
 
     return (
-        <div className="sort">
+        <div ref={sortRef} className="sort">
             <div className="sort__label">
                 <svg
                     width="10"
