@@ -84,7 +84,10 @@ export const Home = () => {
                             <PizzaBlock key={p.id} pizza={p} />)
                 }
             </div>
-            <Pagination currentPage={currentPage} pageCount={pageCount} setCurrentPage={setCurrentPage} />
+            {
+                !searchValue &&
+                <Pagination currentPage={currentPage} pageCount={pageCount} setCurrentPage={setCurrentPage} />
+            }
         </>
     );
 };

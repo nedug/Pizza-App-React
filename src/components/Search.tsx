@@ -1,18 +1,28 @@
-import React, { ChangeEvent, useContext, useRef } from 'react';
+import React, { ChangeEvent, useCallback, useContext, useRef, useState } from 'react';
+import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
 import { SearchContext } from '../App';
 
 
 export const Search = () => {
 
+    const [input, setInput] = useState('');
+
     const { searchValue, setSearchValue }: any = useContext(SearchContext);
 
     const inputSearchRef = useRef<HTMLInputElement>(null!);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const updateDebounceInput = useCallback(debounce((value: string) => {
+            setSearchValue(value);
+        }, 500),
+        []);
     const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setSearchValue(e.target.value);
+        setInput(e.target.value);
+        updateDebounceInput(e.target.value);
     };
     const clickClearHandler = () => {
+        setInput('');
         setSearchValue('');
         inputSearchRef.current.focus();
     };
@@ -21,7 +31,7 @@ export const Search = () => {
         <div className={styles.root}>
             <input
                 ref={inputSearchRef}
-                value={searchValue}
+                value={input}
                 className={styles.input}
                 placeholder="Поиск пиццы..."
                 onChange={changeInputHandler}
