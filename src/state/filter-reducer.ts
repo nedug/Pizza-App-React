@@ -27,6 +27,7 @@ const slice = createSlice({
     initialState: {
         categories: 0,
         sortType: 0,
+        currentPage: 1
     } as initialStateType,
     reducers: {
         setCategoriesIdAC(state, action: PayloadAction<{ index: number }>) { /* Типизиурем Action как PayloadAction */
@@ -34,6 +35,9 @@ const slice = createSlice({
         },
         setSortTypeAC(state, action: PayloadAction<{ index: number }>) {
             state.sortType = action.payload.index;
+        },
+        setCurrentPageAC(state, action: PayloadAction<{ currentPage: number }>) {
+            state.currentPage = action.payload.currentPage;
         },
     },
     // extraReducers: (builder) => {
@@ -47,11 +51,12 @@ const slice = createSlice({
 export const filterReducer = slice.reducer;
 
 // Создаем Actions с помощью slice
-export const { setCategoriesIdAC, setSortTypeAC } = slice.actions;
+export const { setCategoriesIdAC, setSortTypeAC, setCurrentPageAC } = slice.actions;
 
 
 // types
 export type initialStateType = {
     categories: number
     sortType: number
+    currentPage : number
 }

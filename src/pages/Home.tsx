@@ -6,7 +6,7 @@ import { PizzaBlock, PizzaType } from '../components/PizzaBlock';
 import { Pagination } from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useAppDispatch, useAppSelector } from '../state/store';
-import { setCategoriesIdAC, setSortTypeAC } from '../state/filter-reducer';
+import { setCategoriesIdAC, setCurrentPageAC, setSortTypeAC } from '../state/filter-reducer';
 import { API } from '../api/API';
 
 
@@ -19,12 +19,11 @@ export const Home = () => {
 
     const categoriesId = useAppSelector(state => state.filter.categories);
     const sortType = useAppSelector(state => state.filter.sortType);
+    const currentPage = useAppSelector(state => state.filter.currentPage);
 
     const dispatch = useAppDispatch();
 
     const [searchSort, setSearchSort] = useState('rating');
-
-    const [currentPage, setCurrentPage] = useState(1);
     const [pageCount, setPageCount] = useState(0);
 
     const { searchValue }: any = useContext(SearchContext);
@@ -32,12 +31,11 @@ export const Home = () => {
 
     const clickCategoriesIdHandler = (index: number) => {
         dispatch(setCategoriesIdAC({ index }));
-
-        setCurrentPage(1);
+        dispatch(setCurrentPageAC({ currentPage: 1 }));
+        // setCurrentPageAC(1);
     };
     const clickSortIdHandler = (index: number) => {
         dispatch(setSortTypeAC({ index }));
-
         setSearchSort(sortBy[index]);
     };
 
@@ -58,6 +56,10 @@ export const Home = () => {
             })
         // window.scrollTo(0, 0);
     }, [categoriesId, searchSort, searchValue, currentPage]);
+
+    const isPizzas = pizzas.length > 0
+        ? pizzas.map(p => <PizzaBlock key={p.id} pizza={p} />)
+        : <h2 style={{ color: 'red' }}>У нас нет таких пицц... <div>Измените параметры поиска</div></h2>
 
 
     return (
@@ -80,13 +82,12 @@ export const Home = () => {
                         [...new Array(3)].map((_, i) =>
                             <SkeletonPizza key={i} />)
                         :
-                        pizzas.map(p =>
-                            <PizzaBlock key={p.id} pizza={p} />)
+                        isPizzas
                 }
             </div>
             {
                 !searchValue &&
-                <Pagination currentPage={currentPage} pageCount={pageCount} setCurrentPage={setCurrentPage} />
+                <Pagination currentPage={currentPage} pageCount={pageCount} />
             }
         </>
     );

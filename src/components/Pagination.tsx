@@ -1,9 +1,14 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import styles from './Pagination.module.scss';
+import { setCurrentPageAC } from '../state/filter-reducer';
+import { useAppDispatch } from '../state/store';
 
 
-export const Pagination = ({ currentPage, setCurrentPage, pageCount }: PaginationPropsType) => {
+export const Pagination = ({ currentPage, pageCount }: PaginationPropsType) => {
+
+    const dispatch = useAppDispatch();
+
     let className;
     if (currentPage === 1 && pageCount === 1) {
         className = `${styles.root} ${styles.first} ${styles.last}`
@@ -22,7 +27,7 @@ export const Pagination = ({ currentPage, setCurrentPage, pageCount }: Paginatio
             breakLabel="..."
             nextLabel={'>'}
             previousLabel="<"
-            onPageChange={(event) => setCurrentPage(event.selected + 1)}
+            onPageChange={(event) => dispatch(setCurrentPageAC({ currentPage: event.selected + 1 }))}
             pageRangeDisplayed={4}
             pageCount={pageCount}
             forcePage={currentPage - 1}
@@ -33,6 +38,5 @@ export const Pagination = ({ currentPage, setCurrentPage, pageCount }: Paginatio
 
 type PaginationPropsType = {
     currentPage: number
-    setCurrentPage: (currentPage: number) => void
     pageCount: number
 }
