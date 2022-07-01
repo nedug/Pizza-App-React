@@ -3,10 +3,12 @@ import thunk from 'redux-thunk';
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { filterReducer } from './filter-reducer';
+import { cartReducer } from './cart-reducer';
 
 
 const rootReducer = combineReducers({
     filter: filterReducer,
+    cart: cartReducer,
 });
 
 // Redux Toolkit

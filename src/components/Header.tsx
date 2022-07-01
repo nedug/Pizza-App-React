@@ -2,9 +2,16 @@ import React from 'react';
 import LogoPizza from '../img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
 import { Search } from './Search';
+import { useAppDispatch, useAppSelector } from '../state/store';
 
 
 export const Header = () => {
+
+    const totalPrise = useAppSelector(state => state.cart.totalPrise);
+    const totalPizza = useAppSelector(state => state.cart.items);
+
+    const dispatch = useAppDispatch();
+
 
     return (
         <div className="header">
@@ -21,7 +28,7 @@ export const Header = () => {
                 <Search />
                 <div className="header__cart">
                     <Link to="/cart" className="button button--cart">
-                        <span>520 ₽</span>
+                        <span>{totalPrise} ₽</span>
                         <div className="button__delimiter" />
                         <svg
                             width="18"
@@ -52,7 +59,7 @@ export const Header = () => {
                                 strokeLinejoin="round"
                             />
                         </svg>
-                        <span>3</span>
+                        <span>{totalPizza.length}</span>
                     </Link>
                 </div>
             </div>

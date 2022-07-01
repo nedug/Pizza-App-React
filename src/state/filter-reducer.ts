@@ -60,7 +60,7 @@ export const { setCategoriesIdAC, setSortTypeAC, setCurrentPageAC, setFilterPara
 
 
 // types
-export type initialStateType = {
+type initialStateType = {
     categories: number
     sortType: number
     currentPage : number
