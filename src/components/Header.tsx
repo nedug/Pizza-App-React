@@ -2,15 +2,12 @@ import React from 'react';
 import LogoPizza from '../img/pizza-logo.svg';
 import { Link } from 'react-router-dom';
 import { Search } from './Search';
-import { useAppDispatch, useAppSelector } from '../state/store';
+import { useAppSelector } from '../state/store';
 
 
 export const Header = () => {
 
-    const totalPrise = useAppSelector(state => state.cart.totalPrise);
-    const totalPizza = useAppSelector(state => state.cart.items);
-
-    const dispatch = useAppDispatch();
+    const {totalPrise, items: totalPizza } = useAppSelector(state => state.cart);
 
 
     return (
