@@ -1,6 +1,6 @@
 import React from 'react';
 import { AddPizzaType } from './PizzaBlock';
-import { addPizza, decreaseTypePizza, increaseTypePizza } from '../state/cart-reducer';
+import { decreaseTypePizza, increaseTypePizza, removeTypePizza } from '../state/cart-reducer';
 import { useAppDispatch } from '../state/store';
 
 
@@ -9,10 +9,15 @@ export const PizzaCart = ({ pizza, count, sizeP, typeP, changeType }: PizzaCartP
     const dispatch = useAppDispatch();
 
     const increasePizza = () => {
+        if (count === 25) return;
         dispatch(increaseTypePizza({ id: pizza.id, changeType, price: pizza.price }));
     };
     const decreasePizza = () => {
+        if (count === 1) return;
         dispatch(decreaseTypePizza({ id: pizza.id, changeType, price: pizza.price }));
+    };
+    const removePizza = () => {
+        dispatch(removeTypePizza({ id: pizza.id, changeType, price: pizza.price }));
     };
 
 
@@ -66,7 +71,10 @@ export const PizzaCart = ({ pizza, count, sizeP, typeP, changeType }: PizzaCartP
             <div className="cart__item-price">
                 <b>{pizza.price * count} ₽</b>
             </div>
-            <div className="cart__item-remove">
+            <div
+                onClick={removePizza}
+                className="cart__item-remove"
+            >
                 <div className="button button--outline button--circle">
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">

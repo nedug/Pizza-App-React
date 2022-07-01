@@ -28,11 +28,13 @@ const slice = createSlice({
                     [`t${action.payload.item.type}s${action.payload.item.size}`]: 1,
                     count: 1 },);
             }
-
             state.totalPrise += action.payload.item.price;
         },
-        removePizza(state, action: PayloadAction<{ id: number }>) {
-            state.items = state.items.filter(el => el.id !== action.payload.id);
+        removeTypePizza(state, action: PayloadAction<{ id: number, changeType: string, price: number }>) {
+            state.items.find(el => el.id === action.payload.id)['count'] =  state.items.find(el => el.id === action.payload.id)['count'] - state.items.find(el => el.id === action.payload.id)[action.payload.changeType];
+            state.totalPrise = state.totalPrise - state.items.find(el => el.id === action.payload.id)[action.payload.changeType] * action.payload.price;
+            state.items.find(el => el.id === action.payload.id)[action.payload.changeType] = 0;
+
         },
         increaseTypePizza(state, action: PayloadAction<{ id: number, changeType: string, price: number }>) {
             state.items.find(el => el.id === action.payload.id)[action.payload.changeType]++;
@@ -55,11 +57,13 @@ const slice = createSlice({
 export const cartReducer = slice.reducer;
 
 // Создаем Actions с помощью slice
-export const { addPizza, removePizza, clearCart, increaseTypePizza, decreaseTypePizza } = slice.actions;
+export const { addPizza, removeTypePizza, clearCart, increaseTypePizza, decreaseTypePizza } = slice.actions;
 
 
 // types
 type initialStateType = {
     totalPrise: number
-    items: Array<AddPizzaType & any>
+    items: ItemsType
 }
+
+type ItemsType = Array<AddPizzaType & any>

@@ -8,13 +8,13 @@ import { PizzaCart } from '../components/PizzaCart';
 export const Cart = () => {
     const dispatch = useAppDispatch();
     const { totalPrise, items: totalPizza } = useAppSelector(state => state.cart);
-    const allPizzas = totalPizza.reduce((sum, p) => sum + p.count, 0);
 
-    console.log(totalPizza);
+    const allPizzas = totalPizza.reduce((sum, p) => sum + p.count, 0);
 
     const clickClearCart = () => {
         dispatch(clearCart());
     };
+
 
     return (
         totalPrise > 0
@@ -125,12 +125,9 @@ export const Cart = () => {
                                     />)
                                 }
                                 return totalPizzaOneName;
-
-
                             })
                         }
                     </div>
-
 
                     <div className="cart__bottom">
                         <div className="cart__bottom-details">

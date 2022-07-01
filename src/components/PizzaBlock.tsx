@@ -5,13 +5,8 @@ import { addPizza } from '../state/cart-reducer';
 
 export const PizzaBlock = ({ pizza }: PizzaBlockPropsType) => {
 
-    const sizeType = [26, 30, 40];
-
     const dispatch = useAppDispatch();
-
     const totalPizza = useAppSelector(state => state.cart.items);
-
-    // console.log(totalPizza);
 
     const [indexTypes, setIndexTypes] = useState(0);
     const [indexSizes, setIndexSizes] = useState(0);
@@ -26,10 +21,8 @@ export const PizzaBlock = ({ pizza }: PizzaBlockPropsType) => {
             name: pizza.name,
             price: pizza.price,
             imageUrl: pizza.imageUrl,
-            // type: indexTypes === 0 ? 'тонкое' : 'традиционное',
             type: indexTypes,
-            size: sizeType[indexSizes],
-            // size: indexSizes,
+            size: pizza.sizes[indexSizes],
         };
 
         dispatch(addPizza({ item }));
