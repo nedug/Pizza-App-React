@@ -6,8 +6,9 @@ import { useAppSelector } from '../state/store';
 
 
 export const Header = () => {
+    const { totalPrise, items } = useAppSelector(state => state.cart);
 
-    const {totalPrise, items: totalPizza } = useAppSelector(state => state.cart);
+    const totalPizza = items.reduce((sum, p) => sum + p.count, 0);
 
 
     return (
@@ -56,7 +57,7 @@ export const Header = () => {
                                 strokeLinejoin="round"
                             />
                         </svg>
-                        <span>{totalPizza.length}</span>
+                        <span>{totalPizza}</span>
                     </Link>
                 </div>
             </div>

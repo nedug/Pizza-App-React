@@ -1,12 +1,39 @@
 import React, { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../state/store';
+import { addPizza } from '../state/cart-reducer';
 
 
 export const PizzaBlock = ({ pizza }: PizzaBlockPropsType) => {
+
+    const sizeType = [26, 30, 40];
+
+    const dispatch = useAppDispatch();
+
+    const totalPizza = useAppSelector(state => state.cart.items);
+
+    // console.log(totalPizza);
+
     const [indexTypes, setIndexTypes] = useState(0);
     const [indexSizes, setIndexSizes] = useState(0);
 
     const clickTypesHandler = (index: number) => () => setIndexTypes(index);
     const clickSizesHandler = (index: number) => () => setIndexSizes(index);
+
+    const clickAddPizzaHandler = () => {
+
+        const item: AddPizzaType = {
+            id: pizza.id,
+            name: pizza.name,
+            price: pizza.price,
+            imageUrl: pizza.imageUrl,
+            // type: indexTypes === 0 ? 'тонкое' : 'традиционное',
+            type: indexTypes,
+            size: sizeType[indexSizes],
+            // size: indexSizes,
+        };
+
+        dispatch(addPizza({ item }));
+    };
 
 
     return (
@@ -36,7 +63,10 @@ export const PizzaBlock = ({ pizza }: PizzaBlockPropsType) => {
 
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {pizza.price} ₽</div>
-                <button className="button button--outline button--add">
+                <button
+                    onClick={clickAddPizzaHandler}
+                    className="button button--outline button--add"
+                >
                     <svg
                         width="12"
                         height="12"
@@ -50,7 +80,7 @@ export const PizzaBlock = ({ pizza }: PizzaBlockPropsType) => {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>0</i>
+                    <i>{totalPizza.find(el => el.id === pizza.id) ? totalPizza.find(el => el.id === pizza.id)!.count : 0}</i>
                 </button>
             </div>
         </div>
@@ -71,4 +101,13 @@ export type PizzaType = {
 
 export type PizzaBlockPropsType = {
     pizza: PizzaType
+}
+
+export type AddPizzaType = {
+    id: number
+    imageUrl: string
+    name: string
+    price: number
+    type: string | number
+    size: number
 }
