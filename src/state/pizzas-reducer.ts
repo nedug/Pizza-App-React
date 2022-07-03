@@ -15,10 +15,11 @@ export const setPizzasTC = createAsyncThunk(
                 param.categoriesId, param.currentPage,
                 param.searchValue, param.searchSort
             );
-            dispatch(setIsLoadingAC({ IsLoading: false }));
             return { data };
         } catch (error: any) {
             return rejectWithValue(error);
+        } finally {
+            dispatch(setIsLoadingAC({ IsLoading: false }));
         }
     });
 
