@@ -5,7 +5,7 @@ import { PizzaType } from '../components/PizzaBlock';
 
 
 // createAsyncThunk
-export const setPizzasTC = createAsyncThunk(
+export const fetchPizzasTC = createAsyncThunk(
     'pizza/setPizzas',
     async (param: { categoriesId: number, currentPage: number, searchValue: string, searchSort: string },
            { dispatch, rejectWithValue }) => {
@@ -31,7 +31,7 @@ const slice = createSlice({
     } as initialStateType,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(setPizzasTC.fulfilled, (state, action) => {
+        builder.addCase(fetchPizzasTC.fulfilled, (state, action) => {
             state.pizzas = action.payload.data;
         });
     },

@@ -16,7 +16,7 @@ import {
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { setPageCountTC } from '../state/pageCount-reducer';
-import { setPizzasTC } from '../state/pizzas-reducer';
+import { fetchPizzasTC } from '../state/pizzas-reducer';
 
 
 export const Home = () => {
@@ -68,7 +68,7 @@ export const Home = () => {
 
     useEffect(() => {
         if (!isSearchParams.current) {
-            dispatch(setPizzasTC({ categoriesId, currentPage, searchValue, searchSort }));
+            dispatch(fetchPizzasTC({ categoriesId, currentPage, searchValue, searchSort }));
         }
         isSearchParams.current = false;
     }, [categoriesId, searchSort, searchValue, currentPage, dispatch]);
