@@ -17,7 +17,7 @@ import { API } from '../api/API';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { setIsLoadingAC } from '../state/app-reducer';
-import { setPageCountAC } from '../state/pageCount-reducer';
+import { setPageCountTC } from '../state/pageCount-reducer';
 
 
 export const Home = () => {
@@ -66,11 +66,7 @@ export const Home = () => {
 
 
     useEffect(() => {
-        dispatch(setIsLoadingAC({ IsLoading: true }));
-        API.getAllPizzasWithCateg(categoriesId)
-            .then(({ data }) => {
-                dispatch(setPageCountAC({ count: data.length / 4 }));
-            })
+        dispatch(setPageCountTC(categoriesId));
     }, [categoriesId, dispatch]);
 
     useEffect(() => {

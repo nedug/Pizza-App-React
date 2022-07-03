@@ -1,5 +1,20 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { API } from '../api/API';
+import { setIsLoadingAC } from './app-reducer';
 
+
+// createAsyncThunk
+export const setPageCountTC = createAsyncThunk(
+    'pageCount/setPageCount',
+    async (categoriesId: number, { dispatch, rejectWithValue }) => {
+        try {
+            dispatch(setIsLoadingAC({ IsLoading: true }));
+            const { data } = await API.getAllPizzasWithCateg(categoriesId);
+            return { count: data.length / 4 };
+        } catch (error: any) {
+            return rejectWithValue(error);
+        }
+    });
 
 // объект slice для создания Actions и Reducer
 const slice = createSlice({
@@ -7,18 +22,16 @@ const slice = createSlice({
     initialState: {
         pageCount: 0,
     } as initialStateType,
-    reducers: {
-        setPageCountAC(state, action: PayloadAction<{ count: number }>) { /* Типизиурем Action как PayloadAction */
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(setPageCountTC.fulfilled, (state, action) => {
             state.pageCount = action.payload.count;
-        },
+        });
     },
 });
 
 // Создаем Reducer с помощью slice
 export const pageCountReducer = slice.reducer;
-
-// Создаем Actions с помощью slice
-export const { setPageCountAC, } = slice.actions;
 
 
 // types
