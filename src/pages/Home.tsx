@@ -39,7 +39,6 @@ export const Home = () => {
     const navigate = useNavigate(); /* Для вставки значений в URL */
 
     const [searchSort, setSearchSort] = useState('rating');
-    // const [pageCount, setPageCount] = useState(0);
 
     const { searchValue }: any = useContext(SearchContext);
 
