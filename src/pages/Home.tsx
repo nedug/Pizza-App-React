@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Categories } from '../components/Categories';
 import { Sort } from '../components/Sort';
 import { SkeletonPizza } from '../components/SkeletonPizza';
-import { PizzaBlock, PizzaType } from '../components/PizzaBlock';
+import { PizzaBlock } from '../components/PizzaBlock';
 import { Pagination } from '../components/Pagination';
 import { SearchContext } from '../App';
 import { useAppDispatch, useAppSelector } from '../state/store';
@@ -13,11 +13,10 @@ import {
     setFilterParamsActionsType,
     setSortTypeAC
 } from '../state/filter-reducer';
-import { API } from '../api/API';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
-import { setIsLoadingAC } from '../state/app-reducer';
 import { setPageCountTC } from '../state/pageCount-reducer';
+import { setPizzasTC } from '../state/pizzas-reducer';
 
 
 export const Home = () => {
@@ -27,13 +26,12 @@ export const Home = () => {
 
     const sortBy = useMemo(() => ['rating', 'price', 'name'], []);
 
-    const [pizzas, setPizzas] = useState<PizzaType[]>([]);
-
     const categoriesId = useAppSelector(state => state.filter.categories);
     const sortType = useAppSelector(state => state.filter.sortType);
     const currentPage = useAppSelector(state => state.filter.currentPage);
     const isLoading = useAppSelector(state => state.app.isLoading);
     const pageCount = useAppSelector(state => state.pageCount.pageCount);
+    const pizzas = useAppSelector(state => state.pizza.pizzas);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate(); /* Для вставки значений в URL */
@@ -54,12 +52,11 @@ export const Home = () => {
     useEffect(() => {
         if (window.location.search) {
             const params = qs.parse(window.location.search.substring(1));/* Забираем параметры из URL */
-
             const indexSort = sortBy.findIndex((el) => el === params.searchSort);
+
             setSearchSort(sortBy[indexSort]);
 
             dispatch(setFilterParams({ ...params, searchSort: indexSort } as setFilterParamsActionsType));
-
             isSearchParams.current = true;
         }
     }, [dispatch, sortBy]);
@@ -71,12 +68,7 @@ export const Home = () => {
 
     useEffect(() => {
         if (!isSearchParams.current) {
-            dispatch(setIsLoadingAC({ IsLoading: true }));
-            API.getAllPizzasWithFilter(categoriesId, currentPage, searchValue, searchSort)
-                .then(({ data }) => {
-                    setPizzas(data);
-                    dispatch(setIsLoadingAC({ IsLoading: false }));
-                })
+            dispatch(setPizzasTC({ categoriesId, currentPage, searchValue, searchSort }));
         }
         isSearchParams.current = false;
     }, [categoriesId, searchSort, searchValue, currentPage, dispatch]);

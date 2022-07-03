@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { API } from '../api/API';
 import { setIsLoadingAC } from './app-reducer';
 
@@ -10,7 +10,7 @@ export const setPageCountTC = createAsyncThunk(
         try {
             dispatch(setIsLoadingAC({ IsLoading: true }));
             const { data } = await API.getAllPizzasWithCateg(categoriesId);
-            return { count: data.length / 4 };
+            return { count: Math.ceil(data.length / 4) };
         } catch (error: any) {
             return rejectWithValue(error);
         }

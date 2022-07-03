@@ -6,6 +6,7 @@ import { filterReducer } from './filter-reducer';
 import { cartReducer } from './cart-reducer';
 import { appReducer } from './app-reducer';
 import { pageCountReducer } from './pageCount-reducer';
+import { pizzaReducer } from './pizzas-reducer';
 
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     cart: cartReducer,
     app: appReducer,
     pageCount: pageCountReducer,
+    pizza: pizzaReducer,
 });
 
 // Redux Toolkit
