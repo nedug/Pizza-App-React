@@ -16,7 +16,7 @@ export const setPizzasTC = createAsyncThunk(
                 param.searchValue, param.searchSort
             );
             dispatch(setIsLoadingAC({ IsLoading: false }));
-            return data;
+            return { data };
         } catch (error: any) {
             return rejectWithValue(error);
         }
@@ -31,7 +31,7 @@ const slice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(setPizzasTC.fulfilled, (state, action) => {
-            state.pizzas = action.payload;
+            state.pizzas = action.payload.data;
         });
     },
 });

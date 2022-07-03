@@ -8,7 +8,6 @@ export const setPageCountTC = createAsyncThunk(
     'pageCount/setPageCount',
     async (categoriesId: number, { dispatch, rejectWithValue }) => {
         try {
-            dispatch(setIsLoadingAC({ IsLoading: true }));
             const { data } = await API.getAllPizzasWithCateg(categoriesId);
             return { count: Math.ceil(data.length / 4) };
         } catch (error: any) {
