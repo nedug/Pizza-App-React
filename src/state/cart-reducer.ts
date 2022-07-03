@@ -18,7 +18,8 @@ const slice = createSlice({
                 findItem[`t${action.payload.item.type}s${action.payload.item.size}`]++;
                 findItem.count++
             } else {
-                state.items.push({ ...action.payload.item,
+                state.items.push({
+                    ...action.payload.item,
                     t0s26: 0,
                     t0s30: 0,
                     t0s40: 0,
@@ -26,15 +27,19 @@ const slice = createSlice({
                     t1s30: 0,
                     t1s40: 0,
                     [`t${action.payload.item.type}s${action.payload.item.size}`]: 1,
-                    count: 1 },);
+                    count: 1
+                },);
             }
             state.totalPrise += action.payload.item.price;
         },
         removeTypePizza(state, action: PayloadAction<{ id: number, changeType: string, price: number }>) {
-            state.items.find(el => el.id === action.payload.id)['count'] =  state.items.find(el => el.id === action.payload.id)['count'] - state.items.find(el => el.id === action.payload.id)[action.payload.changeType];
-            state.totalPrise = state.totalPrise - state.items.find(el => el.id === action.payload.id)[action.payload.changeType] * action.payload.price;
+            state.items.find(el => el.id === action.payload.id)['count'] =
+                state.items.find(el => el.id === action.payload.id)['count'] -
+                state.items.find(el => el.id === action.payload.id)[action.payload.changeType];
+            state.totalPrise =
+                state.totalPrise -
+                state.items.find(el => el.id === action.payload.id)[action.payload.changeType] * action.payload.price;
             state.items.find(el => el.id === action.payload.id)[action.payload.changeType] = 0;
-
         },
         increaseTypePizza(state, action: PayloadAction<{ id: number, changeType: string, price: number }>) {
             state.items.find(el => el.id === action.payload.id)[action.payload.changeType]++;
