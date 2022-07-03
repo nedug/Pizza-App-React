@@ -4,11 +4,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { filterReducer } from './filter-reducer';
 import { cartReducer } from './cart-reducer';
+import { appReducer } from './app-reducer';
 
 
 const rootReducer = combineReducers({
     filter: filterReducer,
     cart: cartReducer,
+    app: appReducer,
 });
 
 // Redux Toolkit

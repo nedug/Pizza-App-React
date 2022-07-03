@@ -16,6 +16,7 @@ import {
 import { API } from '../api/API';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
+import { setIsLoadingAC } from '../state/app-reducer';
 
 
 export const Home = () => {
@@ -26,11 +27,12 @@ export const Home = () => {
     const sortBy = useMemo(() => ['rating', 'price', 'name'], []);
 
     const [pizzas, setPizzas] = useState<PizzaType[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
 
     const categoriesId = useAppSelector(state => state.filter.categories);
     const sortType = useAppSelector(state => state.filter.sortType);
     const currentPage = useAppSelector(state => state.filter.currentPage);
+    const isLoading = useAppSelector(state => state.app.isLoading);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate(); /* Для вставки значений в URL */
@@ -64,7 +66,7 @@ export const Home = () => {
 
 
     useEffect(() => {
-        setIsLoading(true);
+        dispatch(setIsLoadingAC({ IsLoading: true }));
         API.getAllPizzasWithCateg(categoriesId)
             .then(({ data }) => {
                 setPageCount(Math.ceil(data.length / 4));
@@ -73,11 +75,11 @@ export const Home = () => {
 
     useEffect(() => {
         if (!isSearchParams.current) {
-            setIsLoading(true);
+            dispatch(setIsLoadingAC({ IsLoading: true }));
             API.getAllPizzasWithFilter(categoriesId, currentPage, searchValue, searchSort)
                 .then(({ data }) => {
                     setPizzas(data);
-                    setIsLoading(false);
+                    dispatch(setIsLoadingAC({ IsLoading: false }));
                 })
         }
         isSearchParams.current = false;
