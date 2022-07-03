@@ -17,6 +17,7 @@ import { API } from '../api/API';
 import qs from 'qs';
 import { useNavigate } from 'react-router-dom';
 import { setIsLoadingAC } from '../state/app-reducer';
+import { setPageCountAC } from '../state/pageCount-reducer';
 
 
 export const Home = () => {
@@ -27,18 +28,18 @@ export const Home = () => {
     const sortBy = useMemo(() => ['rating', 'price', 'name'], []);
 
     const [pizzas, setPizzas] = useState<PizzaType[]>([]);
-    // const [isLoading, setIsLoading] = useState(true);
 
     const categoriesId = useAppSelector(state => state.filter.categories);
     const sortType = useAppSelector(state => state.filter.sortType);
     const currentPage = useAppSelector(state => state.filter.currentPage);
     const isLoading = useAppSelector(state => state.app.isLoading);
+    const pageCount = useAppSelector(state => state.pageCount.pageCount);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate(); /* Для вставки значений в URL */
 
     const [searchSort, setSearchSort] = useState('rating');
-    const [pageCount, setPageCount] = useState(0);
+    // const [pageCount, setPageCount] = useState(0);
 
     const { searchValue }: any = useContext(SearchContext);
 
@@ -58,7 +59,7 @@ export const Home = () => {
             const indexSort = sortBy.findIndex((el) => el === params.searchSort);
             setSearchSort(sortBy[indexSort]);
 
-            dispatch(setFilterParams({ ...params, searchSort: indexSort} as setFilterParamsActionsType));
+            dispatch(setFilterParams({ ...params, searchSort: indexSort } as setFilterParamsActionsType));
 
             isSearchParams.current = true;
         }
@@ -69,9 +70,9 @@ export const Home = () => {
         dispatch(setIsLoadingAC({ IsLoading: true }));
         API.getAllPizzasWithCateg(categoriesId)
             .then(({ data }) => {
-                setPageCount(Math.ceil(data.length / 4));
+                dispatch(setPageCountAC({ count: data.length / 4 }));
             })
-    }, [categoriesId]);
+    }, [categoriesId, dispatch]);
 
     useEffect(() => {
         if (!isSearchParams.current) {
@@ -83,7 +84,7 @@ export const Home = () => {
                 })
         }
         isSearchParams.current = false;
-    }, [categoriesId, searchSort, searchValue, currentPage]);
+    }, [categoriesId, searchSort, searchValue, currentPage, dispatch]);
 
     useEffect(() => { /* Для объединения search параметров */
         if (isMounted.current) {
@@ -96,7 +97,6 @@ export const Home = () => {
         }
         isMounted.current = true;
     }, [categoriesId, searchSort, currentPage, navigate, sortType, sortBy]);
-
 
 
     const isPizzas = pizzas.length > 0

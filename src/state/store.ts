@@ -5,12 +5,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { filterReducer } from './filter-reducer';
 import { cartReducer } from './cart-reducer';
 import { appReducer } from './app-reducer';
+import { pageCountReducer } from './pageCount-reducer';
 
 
 const rootReducer = combineReducers({
     filter: filterReducer,
     cart: cartReducer,
     app: appReducer,
+    pageCount: pageCountReducer,
 });
 
 // Redux Toolkit
