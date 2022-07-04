@@ -1,20 +1,19 @@
-import React, { ChangeEvent, useCallback, useContext, useRef, useState } from 'react';
+import React, { ChangeEvent, useCallback, useRef, useState } from 'react';
 import debounce from 'lodash.debounce';
 import styles from './Search.module.scss';
-import { SearchContext } from '../App';
+import { useAppDispatch, useAppSelector } from '../state/store';
+import { setSearchValuedAC } from '../state/filter-reducer';
 
 
 export const Search = () => {
-
+    const dispatch = useAppDispatch();
+    const searchValue = useAppSelector(state => state.filter.searchValue);
     const [input, setInput] = useState('');
-
-    const { searchValue, setSearchValue }: any = useContext(SearchContext);
-
     const inputSearchRef = useRef<HTMLInputElement>(null!);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const updateDebounceInput = useCallback(debounce((value: string) => {
-            setSearchValue(value);
+            dispatch(setSearchValuedAC({ value }));
         }, 500),
         []);
     const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,9 +22,10 @@ export const Search = () => {
     };
     const clickClearHandler = () => {
         setInput('');
-        setSearchValue('');
+        dispatch(setSearchValuedAC({ value: '' }));
         inputSearchRef.current.focus();
     };
+
 
     return (
         <div className={styles.root}>

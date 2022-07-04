@@ -14,12 +14,3 @@ export const API = {
         return instance.get<Array<PizzaType>>(`pizzas?page=${currentPage}&limit=4&${searchValue.length > 0 ? `search=${searchValue}` : ''}${categoriesId > 0 ? `category=${categoriesId}` : ''}&sortBy=${searchSort}&order=${searchSort === 'rating' ? 'desc' : 'asc'}`);
     },
 };
-
-
-// types
-// export type TodolistType = {
-//     id: string
-//     title: string
-//     addedDate: string
-//     order: number
-// }

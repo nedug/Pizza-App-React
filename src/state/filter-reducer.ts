@@ -1,36 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
-// createAsyncThunk
-// export const initializeAppTC = createAsyncThunk(
-//     'app/initializeApp',
-//     async (param, { dispatch, rejectWithValue }) => {
-//         try {
-//             dispatch(setStatusAC({ status: RequestStatus.loading }));
-//             const { data } = await authAPI.me();
-//             if (data.resultCode === 0) {
-//                 dispatch(setIsLoggedInAC({ isLoggedIn: true }));
-//                 dispatch(setStatusAC({ status: RequestStatus.succeeded }));
-//             } else {
-//                 handleServerAppError(data, dispatch);
-//                 return rejectWithValue({});
-//             }
-//         } catch (error: any) {
-//             handleServerNetworkError(error, dispatch);
-//             return rejectWithValue(error);
-//         }
-//     });
-
 // объект slice для создания Actions и Reducer
 const slice = createSlice({
     name: 'filterPizzas',
     initialState: {
+        searchValue: '',
         categories: 0,
         sortType: 0,
         currentPage: 1
     } as initialStateType,
     reducers: {
-        setCategoriesIdAC(state, action: PayloadAction<{ index: number }>) { /* Типизиурем Action как PayloadAction */
+        setSearchValuedAC(state, action: PayloadAction<{ value: string }>) { /* Типизиурем Action как PayloadAction */
+            state.searchValue = action.payload.value;
+        },
+        setCategoriesIdAC(state, action: PayloadAction<{ index: number }>) {
             state.categories = action.payload.index;
         },
         setSortTypeAC(state, action: PayloadAction<{ index: number }>) {
@@ -45,25 +29,21 @@ const slice = createSlice({
             state.sortType = action.payload.searchSort;
         },
     },
-    // extraReducers: (builder) => {
-    //     builder.addCase(initializeAppTC.fulfilled, (state) => {
-    //         state.isInitialized = true;
-    //     });
-    // },
 });
 
 // Создаем Reducer с помощью slice
 export const filterReducer = slice.reducer;
 
 // Создаем Actions с помощью slice
-export const { setCategoriesIdAC, setSortTypeAC, setCurrentPageAC, setFilterParams } = slice.actions;
+export const { setSearchValuedAC, setCategoriesIdAC, setSortTypeAC, setCurrentPageAC, setFilterParams } = slice.actions;
 
 
 // types
 type initialStateType = {
+    searchValue: string
     categories: number
     sortType: number
-    currentPage : number
+    currentPage: number
 }
 
 export type setFilterParamsActionsType = {

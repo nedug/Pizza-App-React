@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Categories } from '../components/Categories';
 import { Sort } from '../components/Sort';
 import { SkeletonPizza } from '../components/SkeletonPizza';
 import { PizzaBlock } from '../components/PizzaBlock';
 import { Pagination } from '../components/Pagination';
-import { SearchContext } from '../App';
 import { useAppDispatch, useAppSelector } from '../state/store';
 import {
     setCategoriesIdAC,
@@ -32,13 +31,12 @@ export const Home = () => {
     const isLoading = useAppSelector(state => state.app.isLoading);
     const pageCount = useAppSelector(state => state.pageCount.pageCount);
     const pizzas = useAppSelector(state => state.pizza.pizzas);
+    const searchValue = useAppSelector(state => state.filter.searchValue);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate(); /* Для вставки значений в URL */
 
     const [searchSort, setSearchSort] = useState('rating');
-
-    const { searchValue }: any = useContext(SearchContext);
 
     const clickCategoriesIdHandler = (index: number) => {
         dispatch(setCategoriesIdAC({ index }));

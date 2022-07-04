@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './scss/app.scss';
 import { Header } from './components/Header';
 import { Home } from './pages/Home';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Cart } from './pages/Cart';
 
-
-export const SearchContext = React.createContext({});
-
 export const App = () => {
-
-    const [searchValue, setSearchValue] = useState('');
 
 
     return (
         <div className="wrapper">
-            <SearchContext.Provider value={{ searchValue, setSearchValue }}>
                 <Header />
                 <div className="content">
                     <div className="container">
@@ -27,7 +21,6 @@ export const App = () => {
                         </Routes>
                     </div>
                 </div>
-            </SearchContext.Provider>
         </div>
     )
 };
