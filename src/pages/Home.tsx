@@ -34,7 +34,7 @@ export const Home = () => {
     const searchValue = useAppSelector(state => state.filter.searchValue);
 
     const dispatch = useAppDispatch();
-    const navigate = useNavigate(); /* Для вставки значений в URL */
+    const navigate = useNavigate(); /* Аналог useHistory */
 
     const [searchSort, setSearchSort] = useState('rating');
 
@@ -65,7 +65,7 @@ export const Home = () => {
     }, [categoriesId, dispatch]);
 
     useEffect(() => {
-        if (!isSearchParams.current) {
+        if (/*window.location.search*/ !isSearchParams.current) {
             dispatch(fetchPizzasTC({ categoriesId, currentPage, searchValue, searchSort }));
         }
         isSearchParams.current = false;
@@ -78,7 +78,8 @@ export const Home = () => {
                 currentPage,
                 searchSort: sortBy[sortType],
             });
-            navigate(`?${queryString}`); /* Вставляем search параметры в URL */
+
+            navigate(`?${queryString}`); /* Перемещение по указанномму URL */
         }
         isMounted.current = true;
     }, [categoriesId, searchSort, currentPage, navigate, sortType, sortBy]);

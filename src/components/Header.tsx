@@ -1,6 +1,6 @@
 import React from 'react';
 import LogoPizza from '../img/pizza-logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Search } from './Search';
 import { useAppSelector } from '../state/store';
 
@@ -9,6 +9,8 @@ export const Header = () => {
     const { totalPrise, items } = useAppSelector(state => state.cart);
 
     const totalPizza = items.reduce((sum, p) => sum + p.count, 0);
+
+    const location = useLocation();
 
 
     return (
@@ -23,7 +25,7 @@ export const Header = () => {
                         </div>
                     </div>
                 </Link>
-                <Search />
+                {location.pathname !== '/cart' && <Search />}
                 <div className="header__cart">
                     <Link to="/cart" className="button button--cart">
                         <span>{totalPrise} ₽</span>
