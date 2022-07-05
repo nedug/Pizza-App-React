@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Categories } from '../components/Categories';
 import { Sort } from '../components/Sort';
 import { SkeletonPizza } from '../components/SkeletonPizza';
@@ -38,14 +38,14 @@ export const Home = () => {
 
     const [searchSort, setSearchSort] = useState('rating');
 
-    const clickCategoriesIdHandler = (index: number) => {
+    const clickCategoriesIdHandler = useCallback((index: number) => {
         dispatch(setCategoriesIdAC({ index }));
         dispatch(setCurrentPageAC({ currentPage: 1 }));
-    };
-    const clickSortIdHandler = (index: number) => {
+    }, [dispatch]);
+    const clickSortIdHandler =  useCallback((index: number) => {
         dispatch(setSortTypeAC({ index }));
         setSearchSort(sortBy[index]);
-    };
+    }, [dispatch, sortBy]);
 
     useEffect(() => {
         if (window.location.search) {

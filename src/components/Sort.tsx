@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 
-export const Sort = ({ sortType, callback }: SortPropsType) => {
+export const Sort = React.memo(({ sortType, callback }: SortPropsType) => {
 
     const sortRef = useRef(null!);
 
@@ -62,7 +62,7 @@ export const Sort = ({ sortType, callback }: SortPropsType) => {
             </div>}
         </div>
     );
-};
+});
 
 
 type SortPropsType = {

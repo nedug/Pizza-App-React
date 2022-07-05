@@ -5,7 +5,7 @@ import { useAppDispatch } from '../state/store';
 import clsx from 'clsx';
 
 
-export const PizzaCart = ({ pizza, count, sizeP, typeP, changeType }: PizzaCartPropsType) => {
+export const PizzaCart = React.memo(({ pizza, count, sizeP, typeP, changeType }: PizzaCartPropsType) => {
 
     const dispatch = useAppDispatch();
 
@@ -91,7 +91,7 @@ export const PizzaCart = ({ pizza, count, sizeP, typeP, changeType }: PizzaCartP
             </div>
         </div>
     )
-};
+});
 
 
 // types

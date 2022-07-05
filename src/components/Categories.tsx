@@ -1,7 +1,11 @@
 import React from 'react';
 
 
-export const Categories = ({ categoriesId, callback }: CategoriesPropsType) => {
+export const Categories = React.memo(({ categoriesId, callback }: CategoriesPropsType) => {
+
+    // Хук показывает из за чего перерисовываетс компонент
+    // useWhyDidYouUpdate('Categories', { categoriesId, callback });
+
     const categories = ['Все', 'Мясные', 'Вегетарианская', 'Курица', 'Острые', 'Закрытые',];
 
     const clickHandler = (index: number) => () => callback(index);
@@ -16,7 +20,7 @@ export const Categories = ({ categoriesId, callback }: CategoriesPropsType) => {
             </ul>
         </div>
     );
-};
+});
 
 
 type CategoriesPropsType = {
