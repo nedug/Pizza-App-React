@@ -28,7 +28,7 @@ const slice = createSlice({
                     t1s40: 0,
                     [`t${action.payload.item.type}s${action.payload.item.size}`]: 1,
                     count: 1
-                },);
+                });
             }
             state.totalPrise += action.payload.item.price;
         },
