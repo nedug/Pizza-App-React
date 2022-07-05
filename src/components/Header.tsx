@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LogoPizza from '../img/pizza-logo.svg';
 import { Link, useLocation } from 'react-router-dom';
 import { Search } from './Search';
@@ -11,6 +11,11 @@ export const Header = () => {
     const totalPizza = items.reduce((sum, p) => sum + p.count, 0);
 
     const location = useLocation();
+
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(items));
+        localStorage.setItem('prise', JSON.stringify(totalPrise));
+    }, [items, totalPrise]);
 
 
     return (

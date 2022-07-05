@@ -6,8 +6,8 @@ import { AddPizzaType } from '../components/PizzaBlock';
 const slice = createSlice({
     name: 'cart',
     initialState: {
-        totalPrise: 0,
-        items: [],
+        totalPrise: JSON.parse(localStorage.getItem('prise')!) || 0,
+        items: JSON.parse(localStorage.getItem('cart')!) || [],
     } as initialStateType,
     reducers: {
         addPizza(state, action: PayloadAction<{ item: AddPizzaType }>) { /* Типизиурем Action как PayloadAction */
@@ -36,10 +36,15 @@ const slice = createSlice({
             state.items.find(el => el.id === action.payload.id)['count'] =
                 state.items.find(el => el.id === action.payload.id)['count'] -
                 state.items.find(el => el.id === action.payload.id)[action.payload.changeType];
+
             state.totalPrise =
                 state.totalPrise -
                 state.items.find(el => el.id === action.payload.id)[action.payload.changeType] * action.payload.price;
             state.items.find(el => el.id === action.payload.id)[action.payload.changeType] = 0;
+
+            if(state.items.find(el => el.id === action.payload.id)['count'] === 0) {
+                state.items = state.items.filter(el => el.id !== action.payload.id)
+            }
         },
         increaseTypePizza(state, action: PayloadAction<{ id: number, changeType: string, price: number }>) {
             state.items.find(el => el.id === action.payload.id)[action.payload.changeType]++;
