@@ -2,6 +2,7 @@ import React from 'react';
 import { AddPizzaType } from './PizzaBlock';
 import { decreaseTypePizza, increaseTypePizza, removeTypePizza } from '../state/cart-reducer';
 import { useAppDispatch } from '../state/store';
+import clsx from 'clsx';
 
 
 export const PizzaCart = ({ pizza, count, sizeP, typeP, changeType }: PizzaCartPropsType) => {
@@ -38,7 +39,7 @@ export const PizzaCart = ({ pizza, count, sizeP, typeP, changeType }: PizzaCartP
             <div className="cart__item-count">
                 <div
                     onClick={decreasePizza}
-                    className="button button--outline button--circle cart__item-count-minus"
+                    className={clsx('button button--outline button--circle cart__item-count-minus', {'cart__item-count-minus-disabled': count === 1})}
                 >
                     <svg width="10" height="10" viewBox="0 0 10 10" fill="none"
                          xmlns="http://www.w3.org/2000/svg">
