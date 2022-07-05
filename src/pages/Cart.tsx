@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../state/store';
 import { clearCart } from '../state/cart-reducer';
 import { PizzaCart } from '../components/PizzaCart';
 
-export const Cart = () => {
+const Cart = () => {
     const dispatch = useAppDispatch();
     const { totalPrise, items: totalPizza } = useAppSelector(state => state.cart);
 
@@ -168,3 +168,5 @@ export const Cart = () => {
             </div>
     );
 };
+
+export default Cart;
