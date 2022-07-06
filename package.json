@@ -1,4 +1,5 @@
 {
+  "homepage": "https://nedug.github.io/Pizza-App-React/",
   "name": "pizza-app",
   "version": "0.1.0",
   "private": true,
@@ -15,6 +16,7 @@
     "ahooks": "^3.5.2",
     "axios": "^0.27.2",
     "clsx": "^1.2.0",
+    "gh-pages": "^4.0.0",
     "lodash.debounce": "^4.0.8",
     "qs": "^6.11.0",
     "react": "^18.2.0",
@@ -32,7 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
