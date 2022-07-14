@@ -2,8 +2,6 @@
 
 ***
 
-React SPA for online shopping Pizza:
-
 ```
 React, Redux Toolkit, TypeScript, axios, lodash, react-router-dom, SASS
 ```
