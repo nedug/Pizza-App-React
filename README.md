@@ -1,6 +1,8 @@
 ## App-react for online shopping pizza
 
 ```
+Technologies and libraries in development:
+
 React, Redux Toolkit, TypeScript, axios, lodash, react-router-dom, SASS
 ```
 
@@ -9,4 +11,4 @@ React, Redux Toolkit, TypeScript, axios, lodash, react-router-dom, SASS
 
 ***
 
-![](https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/d2e337e9-e07a-4199-9cc1-501cc44cb8f8.jpg)
+![](https://github.com/nedug/cv-alexander-r/blob/main/src/common/img/pizza.jpg?raw=true)
