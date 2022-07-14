@@ -6,8 +6,7 @@
 React, Redux Toolkit, TypeScript, axios, lodash, react-router-dom, SASS
 ```
 
-![](https://drive.google.com/file/d/1CxZs3_ZFcmihz9DyxMY9qsU1OoJIMk1-/view?usp=sharing)
-
+![](https://dodopizza.azureedge.net/static/Img/Products/Pizza/ru-RU/d2e337e9-e07a-4199-9cc1-501cc44cb8f8.jpg)
 ***
 
 [Demo version on Github Pages](https://nedug.github.io/Pizza-App-React/)
