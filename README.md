@@ -3,7 +3,7 @@
 ```
 Technologies and libraries in development:
 
-React, Redux Toolkit, TypeScript, axios, lodash, react-router-dom, SASS
+React, Redux Toolkit, TypeScript, axios, lodash, react-router-dom, SСSS
 ```
 
 ***
