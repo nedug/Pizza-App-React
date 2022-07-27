@@ -1,9 +1,26 @@
-## App-react for online shopping pizza
+# App-react for online shopping pizza
+
+***
+
+* getting data from 'mockapi.io'
+* sorting and filtering pizzas
+* search pizzas (+debounce)
+* pizza order and shopping cart
+* pagination
+* loader while loading data
+* saving order to localStorage
+
+***
 
 ```
 Technologies and libraries in development:
-
-React, Redux Toolkit, TypeScript, axios, lodash, react-router-dom, SСSS
+- React
+- TypeScript
+- Redux Toolkit
+- Axios
+- react-router-dom + react-paginate + react-content-loader
+- lodash
+- SСSS
 ```
 
 ***
